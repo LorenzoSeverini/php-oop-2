@@ -1,6 +1,47 @@
 /* style css */
 /* ---------------------------------------------- */
 
+:root
+{
+    --primary-color: #87abd3;
+    --secondary-color: #634b3e;
+    --color-text-1 : #383838;
+}
+
 body { 
     font-family: 'Roboto', sans-serif; 
+}
+
+ /* Header */
+ header {
+    background-color: var(--primary-color);
+    text-align: center;
+    color: var(--color-text-1);
+}
+
+/* Main */
+
+.card {
+    margin-bottom: 1.25rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+.card:hover {
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+}
+
+.card-header {
+    background-color: var(--secondary-color);
+}
+
+.card-body {
+    padding: 1.25rem;
+}
+
+/* Footer */
+footer {
+    background-color: var(--primary-color);
+    color: var(--color-text-1);
 }
