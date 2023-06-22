@@ -8,14 +8,16 @@ class Product
     public $category;
     public $type;
     public $icon;
+    public $img;
 
-    public function __construct($name, $price, $category, $type, $icon)
+    public function __construct($name, $price, $category, $type, $icon, $img)
     {
         $this->name = $name;
         $this->price = $price;
         $this->category = $category;
         $this->type = $type;
         $this->icon = $icon;
+        $this->img = $img;
     }
 
     public function getName()
@@ -26,6 +28,11 @@ class Product
     public function getPrice()
     {
         return $this->price;
+    }
+
+    public function getImg()
+    {
+        return $this->img;
     }
 }
 
