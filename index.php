@@ -1,195 +1,36 @@
 <?php
 
-// import classes
-require_once 'models/product.php';
-require_once 'models/category.php';
-require_once 'models/food.php';
-require_once 'models/toy.php';
-require_once 'models/bed.php';
+require_once __DIR__ . '/database.php';
 
-// product
-$product1 = new Food(
-    "Croquettes",
-    10,
-    $category1,
-    "Food",
-    '<i class="fas fa-drumstick-bite"></i>',
+// user
+$user1 = new User(
+    "Robert De Niro",
+    "TaxiDriver1976@gmail.com",
+    "123456789",
+    "https://picsum.photos/id/100/100/100"
 );
 
-$product2 = new Toy(
-    "Ball",
-    5,
-    $category2,
-    "Toy",
-    '<i class="fas fa-futbol"></i>'
-
+// user card for payment 
+$card1 = new CardForPayment(
+    "Robert De Niro",
+    "1234 5678 9012 3456",
+    "12/24",
+    "123"
 );
 
-$product3 = new Bed(
-    "Bed",
-    50,
-    $category1,
-    "Bed",
-    '<i class="fas fa-bed"></i>',
+// Create a shopping cart
+$cart = new ShoppingCart($user1);
 
-);
+// Add products to the cart
+$cart->addItem($product1);
+$cart->addItem($product2);
+$cart->addItem($product3);
 
-$product4 = new Food(
-    "Croquettes",
-    10,
-    $category1,
-    "Food",
-    '<i class="fas fa-drumstick-bite"></i>',
+// Get the items in the cart
+$items = $cart->getItems();
 
-);
-
-$product5 = new Toy(
-    "Ball",
-    5,
-    $category2,
-    "Toy",
-    '<i class="fas fa-futbol"></i>',
-
-);
-
-$product6 = new Bed(
-    "Bed",
-    50,
-    $category1,
-    "Bed",
-    '<i class="fas fa-bed"></i>',
-
-);
-
-$product7 = new Food(
-    "Croquettes",
-    10,
-    $category1,
-    "Food",
-    '<i class="fas fa-drumstick-bite"></i>',
-
-);
-
-$product8 = new Toy(
-    "Ball",
-    5,
-    $category2,
-    "Toy",
-    '<i class="fas fa-futbol"></i>',
-
-);
-
-$product9 = new Bed(
-    "Bed",
-    50,
-    $category1,
-    "Bed",
-    '<i class="fas fa-bed"></i>',
-
-);
-
-$product10 = new Food(
-    "Croquettes",
-    10,
-    $category1,
-    "Food",
-    '<i class="fas fa-drumstick-bite"></i>',
-);
-
-$product11 = new Toy(
-    "Ball",
-    5,
-    $category2,
-    "Toy",
-    '<i class="fas fa-futbol"></i>',
-);
-
-$product12 = new Bed(
-    "Bed",
-    50,
-    $category1,
-    "Bed",
-    '<i class="fas fa-bed"></i>',
-
-);
-
-$product13 = new Food(
-    "Croquettes",
-    10,
-    $category1,
-    "Food",
-    '<i class="fas fa-drumstick-bite"></i>',
-
-);
-
-$product14 = new Toy(
-    "Ball",
-    5,
-    $category2,
-    "Toy",
-    '<i class="fas fa-futbol"></i>',
-
-);
-
-$product15 = new Bed(
-    "Bed",
-    50,
-    $category1,
-    "Bed",
-    '<i class="fas fa-bed"></i>',
-
-);
-
-$product16 = new Food(
-    "Croquettes",
-    10,
-    $category1,
-    "Food",
-    '<i class="fas fa-drumstick-bite"></i>',
-
-);
-
-// array of products
-$products = [
-    $product1,
-    $product2,
-    $product3,
-    $product4,
-    $product5,
-    $product6,
-    $product7,
-    $product8,
-    $product9,
-    $product10,
-    $product11,
-    $product12,
-    $product13,
-    $product14,
-    $product15,
-    $product16,
-];
-
-// category
-$category1 = new Category("For Dogs", '<i class="fas fa-dog"></i>');
-$category2 = new Category("For Cats", '<i class="fas fa-cat"></i>');
-
-// category for products
-$product1->category = $category1;
-$product2->category = $category2;
-$product3->category = $category1;
-$product4->category = $category1;
-$product5->category = $category2;
-$product6->category = $category1;
-$product7->category = $category1;
-$product8->category = $category2;
-$product9->category = $category1;
-$product10->category = $category1;
-$product11->category = $category2;
-$product12->category = $category1;
-$product13->category = $category1;
-$product14->category = $category2;
-$product15->category = $category1;
-$product16->category = $category1;
+// Get the total price of the cart
+$total = $cart->getTotal();
 
 ?>
 
@@ -214,7 +55,7 @@ $product16->category = $category1;
 
 <body>
 
-    <!-- heder for animal shop  -->
+    <!-- header for animal shop  -->
     <header>
         <div class="container py-4">
             <div class="row">
@@ -227,6 +68,40 @@ $product16->category = $category1;
 
     <!-- main for animal shop  -->
     <main>
+
+        <!-- category section  -->
+        <section class="category">
+            <div class="container py-4">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <h2>Categories</h2>
+                    </div>
+                    <div>
+                        <?php foreach ($categories as $category) { ?>
+                            <div class="col-12 text-center d-flex gap-3">
+                                <select name="category" id="category">
+                                    <option value=""><?= $category->getName(); ?></option>
+                                </select>
+                            </div>
+                        <?php } ?>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- products section  -->
+        <section class="products">
+            <div class="container py-4">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <h2>Products</h2>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- products list  -->
         <div class="container py-4">
             <div class="row">
                 <?php foreach ($products as $product) { ?>
@@ -234,18 +109,91 @@ $product16->category = $category1;
                         <div class="card mb-4">
                             <div class="card-header d-flex align-items-center gap-3">
                                 <h3><?= $product->getName(); ?></h3>
-                                <div><?php echo $product->icon; ?></div>
+                                <div><?= $product->icon; ?></div>
                             </div>
-                            <div class="card-body">
-                                <h4>Price <?= $product->getPrice(); ?> €</h4>
-                                <h5>Category: <?= $product->category->getName(); ?></h5>
-                                <div class="mb-3"><?= $product->category->icon; ?></div>
+                            <div class="card-body d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h4>Price <?= $product->getPrice(); ?> €</h4>
+                                    <h5>Category: <?= $product->category->getName(); ?></h5>
+                                    <div class="mb-3"><?= $product->category->icon; ?></div>
+                                </div>
+                                <!-- img  from product  -->
+                                <div class="mb-3 img-card">
+                                    <img src="<?= $product->getImg(); ?>" alt="<?= $product->getName(); ?>">
+                                </div>
                             </div>
                         </div>
                     </div>
                 <?php } ?>
             </div>
         </div>
+
+
+        <!-- shopping cart section  -->
+        <section class="shopping-cart">
+            <div class="container py-4">
+                <div class="row d-flex justify-content-center">
+                    <div class="col-6 text-center">
+                        <h2>Shopping Cart</h2>
+
+                        <!-- user info  -->
+                        <div class="user-info">
+                            <div class="user-avatar mb-2">
+                                <img src="<?= $user1->getAvatar(); ?>" alt="<?= $user1->getName(); ?>">
+                            </div>
+                            <div class="user-name mb-2">
+                                <h3>Ready to order? <?= $user1->getName(); ?> 🫡</h3>
+                            </div>
+                        </div>
+
+                        <!-- cart items  -->
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Product</th>
+                                    <th scope="col">Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($items as $item) { ?>
+                                    <tr>
+                                        <td><?= $item->getName(); ?></td>
+                                        <td><?= $item->getPrice(); ?> €</td>
+                                    </tr>
+                                <?php } ?>
+                                <tr>
+                                    <td>Total</td>
+                                    <td><?= $total; ?> €</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="purchase">
+                            <!-- button purchase  -->
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Purchase</button>
+                            <!-- button delete -->
+                            <button type="button" class="btn btn-danger" onclick="deleteCart()">Delete Shopping Cart</button>
+
+                            <!-- modal for purchase  -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Purchase</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p id="completion-message" style="display: none;">Order completed!</p>
+                                            <button type="button" class="btn btn-primary" onclick="completeOrder()">Complete Order</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+        </section>
     </main>
 
     <!-- footer for animal shop  -->
@@ -261,6 +209,7 @@ $product16->category = $category1;
 
     <!-- bootstrap js -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <script src="./js/main.js"></script>
 </body>
 
 </html>
